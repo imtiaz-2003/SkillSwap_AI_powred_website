@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap - Profile</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-sync-alt text-primary me-2"></i>
+                <span class="fw-bold">SkillSwap</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="match.html">Find Matches</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sessions.html">My Sessions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chat.html">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="resources.html">Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">Feedback</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <!-- Points Display -->
+                    <div class="me-3 d-none d-md-block">
+                        <span class="badge bg-success rounded-pill px-3 py-2">
+                            <i class="fas fa-coins me-1"></i> 250 Points
+                        </span>
+                    </div>
+                    
+                    <!-- Notifications Dropdown -->
+                    <div class="dropdown me-3 position-relative">
+                        <button class="btn btn-light position-relative" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                3
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationsDropdown">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-plus text-primary me-2"></i> New Match Found</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-clock text-warning me-2"></i> Session in 15 Minutes</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-star text-success me-2"></i> You got feedback!</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center" href="#">View All</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- User Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://ui-avatars.com/api/?name=Alex+Smith&background=random" alt="User" class="rounded-circle me-2" width="32" height="32">
+                            <span class="d-none d-md-inline">Alex Smith</span>
+                            <i class="fas fa-chevron-down ms-2 small"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-4">
+        <div class="row">
+            <!-- Profile Sidebar -->
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="position-relative mx-auto mb-3" style="width: 120px;">
+                            <img src="https://ui-avatars.com/api/?name=Alex+Smith&background=random&size=120" alt="Profile" class="rounded-circle img-fluid border">
+                            <button class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle" style="width: 32px; height: 32px;" data-bs-toggle="modal" data-bs-target="#changePhotoModal">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <h4 class="mb-1">Alex Smith</h4>
+                        <p class="text-muted mb-3">San Francisco, CA</p>
+                        <div class="d-flex justify-content-center mb-3">
+                            <span class="badge bg-primary me-2">
+                                <i class="fas fa-star me-1"></i> 4.8/5
+                            </span>
+                            <span class="badge bg-success">
+                                <i class="fas fa-check-circle me-1"></i> Verified
+                            </span>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                                <i class="fas fa-edit me-2"></i> Edit Profile
+                            </button>
+                        </div>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card-body">
+                        <h6 class="mb-3">About Me</h6>
+                        <p class="text-muted">
+                            Full-stack developer with 5 years of experience. Passionate about teaching coding and learning new design skills. Always looking to expand my knowledge and connect with like-minded individuals.
+                        </p>
+                        <h6 class="mb-3">Contact</h6>
+                        <div class="mb-2">
+                            <i class="fas fa-envelope text-muted me-2"></i>
+                            <span>alex.smith@example.com</span>
+                        </div>
+                        <div class="mb-2">
+                            <i class="fas fa-globe text-muted me-2"></i>
+                            <a href="#" class="text-decoration-none">alexsmith.dev</a>
+                        </div>
+                        <div>
+                            <i class="fas fa-clock text-muted me-2"></i>
+                            <span>UTC-08:00 (Pacific Time)</span>
+                        </div>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card-body">
+                        <h6 class="mb-3">Badges</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <div class="text-center" data-bs-toggle="tooltip" title="Top Teacher">
+                                <div class="rounded-circle bg-warning bg-opacity-10 p-2 mb-1" style="width: 48px; height: 48px;">
+                                    <i class="fas fa-award text-warning fa-lg"></i>
+                                </div>
+                                <small>Top Teacher</small>
+                            </div>
+                            <div class="text-center" data-bs-toggle="tooltip" title="Quick Responder">
+                                <div class="rounded-circle bg-success bg-opacity-10 p-2 mb-1" style="width: 48px; height: 48px;">
+                                    <i class="fas fa-bolt text-success fa-lg"></i>
+                                </div>
+                                <small>Quick Responder</small>
+                            </div>
+                            <div class="text-center" data-bs-toggle="tooltip" title="Coding Expert">
+                                <div class="rounded-circle bg-primary bg-opacity-10 p-2 mb-1" style="width: 48px; height: 48px;">
+                                    <i class="fas fa-code text-primary fa-lg"></i>
+                                </div>
+                                <small>Coding Expert</small>
+                            </div>
+                            <div class="text-center" data-bs-toggle="tooltip" title="Helpful Mentor">
+                                <div class="rounded-circle bg-info bg-opacity-10 p-2 mb-1" style="width: 48px; height: 48px;">
+                                    <i class="fas fa-hands-helping text-info fa-lg"></i>
+                                </div>
+                                <small>Helpful Mentor</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profile Content -->
+            <div class="col-lg-8">
+                <!-- Skills Tabs -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <ul class="nav nav-tabs card-header-tabs" id="skillsTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="teaching-tab" data-bs-toggle="tab" data-bs-target="#teaching" type="button" role="tab" aria-controls="teaching" aria-selected="true">
+                                    <i class="fas fa-chalkboard-teacher me-2"></i> Skills I Teach
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="learning-tab" data-bs-toggle="tab" data-bs-target="#learning" type="button" role="tab" aria-controls="learning" aria-selected="false">
+                                    <i class="fas fa-graduation-cap me-2"></i> Skills I'm Learning
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="skillsTabsContent">
+                            <!-- Teaching Skills -->
+                            <div class="tab-pane fade show active" id="teaching" role="tabpanel" aria-labelledby="teaching-tab">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="mb-0">Skills I Can Teach</h6>
+                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addSkillModal">
+                                        <i class="fas fa-plus me-1"></i> Add Skill
+                                    </button>
+                                </div>
+                                
+                                <div class="list-group">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-1">JavaScript</h6>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="badge bg-success me-2">Expert</span>
+                                                    <small class="text-muted">5 years experience</small>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-light" type="button" id="skillActions1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="skillActions1">
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-trash me-2"></i> Remove</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <p class="mb-1 mt-2">Front-end development, React, Node.js, and modern JavaScript frameworks.</p>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 95%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-1">Python</h6>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="badge bg-primary me-2">Advanced</span>
+                                                    <small class="text-muted">3 years experience</small>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-light" type="button" id="skillActions2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="skillActions2">
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-trash me-2"></i> Remove</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <p class="mb-1 mt-2">Data analysis, machine learning basics, and web scraping.</p>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-1">HTML/CSS</h6>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="badge bg-success me-2">Expert</span>
+                                                    <small class="text-muted">6 years experience</small>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-light" type="button" id="skillActions3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="skillActions3">
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-trash me-2"></i> Remove</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <p class="mb-1 mt-2">Responsive design, CSS frameworks, and modern layout techniques.</p>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Learning Skills -->
+                            <div class="tab-pane fade" id="learning" role="tabpanel" aria-labelledby="learning-tab">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="mb-0">Skills I Want to Learn</h6>
+                                    <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#addSkillModal">
+                                        <i class="fas fa-plus me-1"></i> Add Skill
+                                    </button>
+                                </div>
+                                
+                                <div class="list-group">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-1">UI/UX Design</h6>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="badge bg-warning me-2">Intermediate</span>
+                                                    <small class="text-muted">1 year experience</small>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-light" type="button" id="learningActions1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="learningActions1">
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-trash me-2"></i> Remove</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <p class="mb-1 mt-2">User research, wireframing, and prototyping.</p>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-1">Data Science</h6>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="badge bg-info me-2">Beginner</span>
+                                                    <small class="text-muted">Just started</small>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-light" type="button" id="learningActions2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="learningActions2">
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-trash me-2"></i> Remove</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <p class="mb-1 mt-2">Statistical analysis, data visualization, and machine learning.</p>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-1">Spanish Language</h6>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="badge bg-warning me-2">Intermediate</span>
+                                                    <small class="text-muted">2 years learning</small>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-light" type="button" id="learningActions3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="learningActions3">
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-trash me-2"></i> Remove</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <p class="mb-1 mt-2">Conversational Spanish, reading, and writing.</p>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Recent Activity</h5>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light" type="button" id="activityFilter" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-filter me-1"></i> Filter
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="activityFilter">
+                                <li><a class="dropdown-item" href="#">All Activity</a></li>
+                                <li><a class="dropdown-item" href="#">Sessions</a></li>
+                                <li><a class="dropdown-item" href="#">Reviews</a></li>
+                                <li><a class="dropdown-item" href="#">Points</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item py-3">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <div class="rounded-circle bg-primary bg-opacity-10 p-2">
+                                            <i class="fas fa-video text-primary"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h6 class="mb-0">Completed a JavaScript session with Emma Wilson</h6>
+                                            <small class="text-muted">2 days ago</small>
+                                        </div>
+                                        <p class="text-muted mb-0">You earned 50 points for this session.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item py-3">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <div class="rounded-circle bg-success bg-opacity-10 p-2">
+                                            <i class="fas fa-star text-success"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h6 class="mb-0">Received a 5-star review from Emma Wilson</h6>
+                                            <small class="text-muted">2 days ago</small>
+                                        </div>
+                                        <p class="text-muted mb-0">"Alex is an excellent teacher! Very patient and knowledgeable."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item py-3">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <div class="rounded-circle bg-info bg-opacity-10 p-2">
+                                            <i class="fas fa-plus-circle text-info"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h6 class="mb-0">Added Data Science as a skill to learn</h6>
+                                            <small class="text-muted">1 week ago</small>
+                                        </div>
+                                        <p class="text-muted mb-0">You're now looking for matches to help you learn this skill.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item py-3">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <div class="rounded-circle bg-warning bg-opacity-10 p-2">
+                                            <i class="fas fa-award text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h6 class="mb-0">Earned the "Top Teacher" badge</h6>
+                                            <small class="text-muted">2 weeks ago</small>
+                                        </div>
+                                        <p class="text-muted mb-0">Congratulations! You've taught 10+ successful sessions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white text-center py-3">
+                        <a href="#" class="text-decoration-none">View All Activity</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" value="Alex Smith">
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="location" value="San Francisco, CA">
+                        </div>
+                        <div class="mb-3">
+                            <label for="timezone" class="form-label">Timezone</label>
+                            <select class="form-select" id="timezone">
+                                <option selected>UTC-08:00 (Pacific Time)</option>
+                                <option>UTC-07:00 (Mountain Time)</option>
+                                <option>UTC-06:00 (Central Time)</option>
+                                <option>UTC-05:00 (Eastern Time)</option>
+                                <option>UTC+00:00 (GMT)</option>
+                                <option>UTC+01:00 (Central European Time)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" value="alex.smith@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="website" class="form-label">Website</label>
+                            <input type="url" class="form-control" id="website" value="https://alexsmith.dev">
+                        </div>
+                        <div class="mb-3">
+                            <label for="bio" class="form-label">Bio</label>
+                            <textarea class="form-control" id="bio" rows="4">Full-stack developer with 5 years of experience. Passionate about teaching coding and learning new design skills. Always looking to expand my knowledge and connect with like-minded individuals.</textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Photo Modal -->
+    <div class="modal fade" id="changePhotoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Change Profile Photo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <img src="https://ui-avatars.com/api/?name=Alex+Smith&background=random&size=150" alt="Profile" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px;">
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-outline-danger btn-sm me-2">
+                                <i class="fas fa-trash me-1"></i> Remove
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-sync-alt me-1"></i> Generate Avatar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="photoUpload" class="form-label">Upload New Photo</label>
+                        <input class="form-control" type="file" id="photoUpload">
+                    </div>
+                    <div class="form-text text-muted">
+                        Recommended: Square image, at least 300x300 pixels. Maximum file size: 5MB.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Upload Photo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Skill Modal -->
+    <div class="modal fade" id="addSkillModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a New Skill</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Skill Type:</label>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="skillType" id="skillToTeach" checked>
+                                <label class="btn btn-outline-primary" for="skillToTeach">I can teach this</label>
+                                
+                                <input type="radio" class="btn-check" name="skillType" id="skillToLearnNew">
+                                <label class="btn btn-outline-success" for="skillToLearnNew">I want to learn this</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="skillName" class="form-label">Skill Name:</label>
+                            <input type="text" class="form-control" id="skillName" placeholder="e.g. JavaScript, Photography, etc.">
+                        </div>
+                        <div class="mb-3">
+                            <label for="skillCategory" class="form-label">Category:</label>
+                            <select class="form-select" id="skillCategory">
+                                <option selected>Programming</option>
+                                <option>Design</option>
+                                <option>Business</option>
+                                <option>Marketing</option>
+                                <option>Languages</option>
+                                <option>Music</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="proficiencyLevel" class="form-label">Proficiency Level:</label>
+                            <select class="form-select" id="proficiencyLevel">
+                                <option selected>Beginner</option>
+                                <option>Intermediate</option>
+                                <option>Advanced</option>
+                                <option>Expert</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="skillDescription" class="form-label">Brief Description:</label>
+                            <textarea class="form-control" id="skillDescription" rows="3" placeholder="Describe your experience with this skill..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Add Skill</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

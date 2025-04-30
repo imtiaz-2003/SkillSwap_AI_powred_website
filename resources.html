@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap - Resource Hub</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-sync-alt text-primary me-2"></i>
+                <span class="fw-bold">SkillSwap</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="match.html">Find Matches</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sessions.html">My Sessions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chat.html">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="resources.html">Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">Feedback</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <!-- Points Display -->
+                    <div class="me-3 d-none d-md-block">
+                        <span class="badge bg-success rounded-pill px-3 py-2">
+                            <i class="fas fa-coins me-1"></i> 250 Points
+                        </span>
+                    </div>
+                    
+                    <!-- Notifications Dropdown -->
+                    <div class="dropdown me-3 position-relative">
+                        <button class="btn btn-light position-relative" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                3
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationsDropdown">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-plus text-primary me-2"></i> New Match Found</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-clock text-warning me-2"></i> Session in 15 Minutes</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-star text-success me-2"></i> You got feedback!</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center" href="#">View All</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- User Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://ui-avatars.com/api/?name=Alex+Smith&background=random" alt="User" class="rounded-circle me-2" width="32" height="32">
+                            <span class="d-none d-md-inline">Alex Smith</span>
+                            <i class="fas fa-chevron-down ms-2 small"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-4">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-0">Resource Hub</h1>
+                <p class="text-muted">Share and discover learning resources</p>
+            </div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadResourceModal">
+                <i class="fas fa-upload me-2"></i> Upload Resource
+            </button>
+        </div>
+
+        <div class="row">
+            <!-- Filters Sidebar -->
+            <div class="col-lg-3 mb-4 mb-lg-0">
+                <div class="card border-0 shadow-sm sticky-top" style="top: 80px; z-index: 1;">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0">Filters</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <!-- Search -->
+                            <div class="mb-4">
+                                <label for="searchResource" class="form-label">Search</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="searchResource" placeholder="Search resources...">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Resource Type -->
+                            <div class="mb-4">
+                                <label class="form-label">Resource Type</label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="typePDF" checked>
+                                    <label class="form-check-label" for="typePDF">
+                                        PDF Documents
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="typeVideo" checked>
+                                    <label class="form-check-label" for="typeVideo">
+                                        Videos
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="typeLink" checked>
+                                    <label class="form-check-label" for="typeLink">
+                                        Links & Articles
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="typeCode" checked>
+                                    <label class="form-check-label" for="typeCode">
+                                        Code Snippets
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Skill Category -->
+                            <div class="mb-4">
+                                <label for="skillCategory" class="form-label">Skill Category</label>
+                                <select class="form-select" id="skillCategory">
+                                    <option selected value="">All Categories</option>
+                                    <option>Programming</option>
+                                    <option>Design</option>
+                                    <option>Business</option>
+                                    <option>Marketing</option>
+                                    <option>Languages</option>
+                                    <option>Music</option>
+                                    <option>Art</option>
+                                    <option>Cooking</option>
+                                    <option>Fitness</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Skill Level -->
+                            <div class="mb-4">
+                                <label class="form-label">Skill Level</label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="levelBeginner" checked>
+                                    <label class="form-check-label" for="levelBeginner">
+                                        Beginner
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="levelIntermediate" checked>
+                                    <label class="form-check-label" for="levelIntermediate">
+                                        Intermediate
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="levelAdvanced" checked>
+                                    <label class="form-check-label" for="levelAdvanced">
+                                        Advanced
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="levelExpert" checked>
+                                    <label class="form-check-label" for="levelExpert">
+                                        Expert
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Sort By -->
+                            <div class="mb-4">
+                                <label for="sortBy" class="form-label">Sort By</label>
+                                <select class="form-select" id="sortBy">
+                                    <option selected>Most Recent</option>
+                                    <option>Most Popular</option>
+                                    <option>Highest Rated</option>
+                                    <option>A-Z</option>
+                                </select>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="button" class="btn btn-primary">
+                                    <i class="fas fa-filter me-2"></i> Apply Filters
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Resources List -->
+            <div class="col-lg-9">
+                <!-- Popular Tags -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h6 class="mb-3">Popular Tags</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#" class="badge bg-light text-dark text-decoration-none py-2 px-3">#JavaScript</a>
+                            <a href="#" class="badge bg-light text-dark text-decoration-none py-2 px-3">#Python</a>
+                            <a href="#" class="badge bg-light text-dark text-decoration-none py-2 px-3">#WebDevelopment</a>
+                            <a href="#" class="badge bg-light text-dark text-decoration-none py-2 px-3">#UXDesign</a>
+                            <a href="#" class="badge bg-light text-dark text-decoration-none py-2 px-3">#DataScience</a>
+                            <a href="#" class="badge bg-light text-dark text-decoration-none py-2 px-3">#MachineLearning</a>
+                            <a href="#" class="badge bg-light text-dark text-decoration-none py-2 px-3">#React</a>
+                            <a href="#" class="badge bg-light text-dark text-decoration-none py-2 px-3">#HTML/CSS</a>
+                            <a href="#" class="badge bg-light text-dark text-decoration-none py-2 px-3">#Beginner</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Resources Grid -->
+                <div class="row">
+                    <!-- Resource 1 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm resource-card">
+                            <div class="card-body">
+                                <div class="d-flex mb-3">
+                                    <div class="resource-icon bg-primary bg-opacity-10 p-3 rounded me-3">
+                                        <i class="fas fa-file-pdf text-primary fa-2x"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0">JavaScript Cheat Sheet</h5>
+                                        <p class="text-muted small mb-0">PDF Document</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">A comprehensive cheat sheet covering JavaScript fundamentals, ES6 features, and common patterns.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="small text-muted">
+                                        <i class="fas fa-tag me-1"></i> JavaScript, Beginner
+                                    </div>
+                                    <div class="resource-votes">
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="1" data-vote-type="up">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                        <span class="vote-count text-success" data-resource-id="1">42</span>
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="1" data-vote-type="down">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://ui-avatars.com/api/?name=Alex+Smith&background=random" alt="User" class="rounded-circle me-2" width="24" height="24">
+                                    <small>Alex Smith</small>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-download me-1"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resource 2 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm resource-card">
+                            <div class="card-body">
+                                <div class="d-flex mb-3">
+                                    <div class="resource-icon bg-danger bg-opacity-10 p-3 rounded me-3">
+                                        <i class="fas fa-video text-danger fa-2x"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0">Python Data Analysis Tutorial</h5>
+                                        <p class="text-muted small mb-0">Video (45 min)</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">Learn how to analyze data with Python using pandas, numpy, and matplotlib with practical examples.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="small text-muted">
+                                        <i class="fas fa-tag me-1"></i> Python, DataScience
+                                    </div>
+                                    <div class="resource-votes">
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="2" data-vote-type="up">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                        <span class="vote-count text-success" data-resource-id="2">38</span>
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="2" data-vote-type="down">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=random" alt="User" class="rounded-circle me-2" width="24" height="24">
+                                    <small>Sarah Johnson</small>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-play me-1"></i> Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resource 3 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm resource-card">
+                            <div class="card-body">
+                                <div class="d-flex mb-3">
+                                    <div class="resource-icon bg-success bg-opacity-10 p-3 rounded me-3">
+                                        <i class="fas fa-link text-success fa-2x"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0">UI/UX Design Principles</h5>
+                                        <p class="text-muted small mb-0">Article</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">A comprehensive guide to UI/UX design principles with examples and case studies from top companies.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="small text-muted">
+                                        <i class="fas fa-tag me-1"></i> UXDesign, Design
+                                    </div>
+                                    <div class="resource-votes">
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="3" data-vote-type="up">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                        <span class="vote-count text-success" data-resource-id="3">29</span>
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="3" data-vote-type="down">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://ui-avatars.com/api/?name=David+Chen&background=random" alt="User" class="rounded-circle me-2" width="24" height="24">
+                                    <small>David Chen</small>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-external-link-alt me-1"></i> Visit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resource 4 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm resource-card">
+                            <div class="card-body">
+                                <div class="d-flex mb-3">
+                                    <div class="resource-icon bg-info bg-opacity-10 p-3 rounded me-3">
+                                        <i class="fas fa-code text-info fa-2x"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0">React Hooks Examples</h5>
+                                        <p class="text-muted small mb-0">Code Snippet</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">A collection of practical examples for all React hooks with explanations and use cases.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="small text-muted">
+                                        <i class="fas fa-tag me-1"></i> React, JavaScript
+                                    </div>
+                                    <div class="resource-votes">
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="4" data-vote-type="up">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                        <span class="vote-count text-success" data-resource-id="4">35</span>
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="4" data-vote-type="down">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://ui-avatars.com/api/?name=Jessica+Taylor&background=random" alt="User" class="rounded-circle me-2" width="24" height="24">
+                                    <small>Jessica Taylor</small>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-code me-1"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resource 5 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm resource-card">
+                            <div class="card-body">
+                                <div class="d-flex mb-3">
+                                    <div class="resource-icon bg-warning bg-opacity-10 p-3 rounded me-3">
+                                        <i class="fas fa-file-pdf text-warning fa-2x"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0">HTML/CSS Responsive Design Guide</h5>
+                                        <p class="text-muted small mb-0">PDF Document</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">Learn how to create responsive websites using modern HTML and CSS techniques, including flexbox and grid.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="small text-muted">
+                                        <i class="fas fa-tag me-1"></i> HTML/CSS, WebDevelopment
+                                    </div>
+                                    <div class="resource-votes">
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="5" data-vote-type="up">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                        <span class="vote-count text-success" data-resource-id="5">27</span>
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="5" data-vote-type="down">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://ui-avatars.com/api/?name=James+Anderson&background=random" alt="User" class="rounded-circle me-2" width="24" height="24">
+                                    <small>James Anderson</small>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-download me-1"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resource 6 -->
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm resource-card">
+                            <div class="card-body">
+                                <div class="d-flex mb-3">
+                                    <div class="resource-icon bg-danger bg-opacity-10 p-3 rounded me-3">
+                                        <i class="fas fa-video text-danger fa-2x"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0">Machine Learning Fundamentals</h5>
+                                        <p class="text-muted small mb-0">Video Series (5 parts)</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">A beginner-friendly introduction to machine learning concepts, algorithms, and practical applications.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="small text-muted">
+                                        <i class="fas fa-tag me-1"></i> MachineLearning, Python
+                                    </div>
+                                    <div class="resource-votes">
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="6" data-vote-type="up">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                        <span class="vote-count text-success" data-resource-id="6">31</span>
+                                        <button class="btn btn-sm btn-light vote-button" data-resource-id="6" data-vote-type="down">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://ui-avatars.com/api/?name=Michael+Brown&background=random" alt="User" class="rounded-circle me-2" width="24" height="24">
+                                    <small>Michael Brown</small>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-play me-1"></i> Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <nav aria-label="Resource pagination" class="d-flex justify-content-center mt-4">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </main>
+
+    <!-- Upload Resource Modal -->
+    <div class="modal fade" id="uploadResourceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Resource</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="resourceTitle" class="form-label">Resource Title</label>
+                            <input type="text" class="form-control" id="resourceTitle" placeholder="Enter a descriptive title...">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="resourceType" class="form-label">Resource Type</label>
+                            <select class="form-select" id="resourceType">
+                                <option selected>PDF Document</option>
+                                <option>Video</option>
+                                <option>Link / Article</option>
+                                <option>Code Snippet</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="resourceFile" class="form-label">Upload File</label>
+                            <input class="form-control" type="file" id="resourceFile">
+                            <div class="form-text">
+                                Max file size: 50MB. Supported formats: PDF, MP4, ZIP.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="resourceLink" class="form-label">Or Enter URL</label>
+                            <input type="url" class="form-control" id="resourceLink" placeholder="https://...">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="resourceDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="resourceDescription" rows="3" placeholder="Describe what this resource covers..."></textarea>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="resourceCategory" class="form-label">Category</label>
+                                <select class="form-select" id="resourceCategory">
+                                    <option selected>Programming</option>
+                                    <option>Design</option>
+                                    <option>Business</option>
+                                    <option>Marketing</option>
+                                    <option>Languages</option>
+                                    <option>Music</option>
+                                    <option>Art</option>
+                                    <option>Cooking</option>
+                                    <option>Fitness</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="resourceLevel" class="form-label">Skill Level</label>
+                                <select class="form-select" id="resourceLevel">
+                                    <option selected>Beginner</option>
+                                    <option>Intermediate</option>
+                                    <option>Advanced</option>
+                                    <option>Expert</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="resourceTags" class="form-label">Tags</label>
+                            <input type="text" class="form-control" id="resourceTags" placeholder="Enter tags separated by commas...">
+                            <div class="form-text">
+                                Example: JavaScript, WebDevelopment, Beginner
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Upload Resource</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

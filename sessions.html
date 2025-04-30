@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap - My Sessions</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-sync-alt text-primary me-2"></i>
+                <span class="fw-bold">SkillSwap</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="match.html">Find Matches</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="sessions.html">My Sessions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chat.html">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="resources.html">Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">Feedback</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <!-- Points Display -->
+                    <div class="me-3 d-none d-md-block">
+                        <span class="badge bg-success rounded-pill px-3 py-2">
+                            <i class="fas fa-coins me-1"></i> 250 Points
+                        </span>
+                    </div>
+                    
+                    <!-- Notifications Dropdown -->
+                    <div class="dropdown me-3 position-relative">
+                        <button class="btn btn-light position-relative" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                3
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationsDropdown">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-plus text-primary me-2"></i> New Match Found</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-clock text-warning me-2"></i> Session in 15 Minutes</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-star text-success me-2"></i> You got feedback!</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center" href="#">View All</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- User Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://ui-avatars.com/api/?name=Alex+Smith&background=random" alt="User" class="rounded-circle me-2" width="32" height="32">
+                            <span class="d-none d-md-inline">Alex Smith</span>
+                            <i class="fas fa-chevron-down ms-2 small"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-4">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-0">My Sessions</h1>
+                <p class="text-muted">Manage your teaching and learning sessions</p>
+            </div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookSessionModal">
+                <i class="fas fa-plus me-2"></i> Book New Session
+            </button>
+        </div>
+
+        <!-- Session Filters -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="sessionType" class="form-label">Session Type</label>
+                        <select class="form-select" id="sessionType">
+                            <option value="all" selected>All Sessions</option>
+                            <option value="teaching">Teaching</option>
+                            <option value="learning">Learning</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="sessionStatus" class="form-label">Status</label>
+                        <select class="form-select" id="sessionStatus">
+                            <option value="all" selected>All Status</option>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="timeZone" class="form-label">Time Zone</label>
+                        <select class="form-select" id="timeZone">
+                            <option value="UTC-08:00" selected>UTC-08:00 (Pacific Time)</option>
+                            <option value="UTC-07:00">UTC-07:00 (Mountain Time)</option>
+                            <option value="UTC-06:00">UTC-06:00 (Central Time)</option>
+                            <option value="UTC-05:00">UTC-05:00 (Eastern Time)</option>
+                            <option value="UTC+00:00">UTC+00:00 (GMT)</option>
+                            <option value="UTC+01:00">UTC+01:00 (Central European Time)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar View -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white py-3">
+                <ul class="nav nav-tabs card-header-tabs" id="sessionViewTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar" type="button" role="tab" aria-controls="calendar" aria-selected="true">
+                            <i class="fas fa-calendar-alt me-2"></i> Calendar View
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab" aria-controls="list" aria-selected="false">
+                            <i class="fas fa-list me-2"></i> List View
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="sessionViewTabsContent">
+                    <!-- Calendar View Tab -->
+                    <div class="tab-pane fade show active" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <button class="btn btn-sm btn-outline-secondary me-2" id="prevMonth">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" id="nextMonth">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <h5 class="mb-0" id="calendarMonthYear">April 2025</h5>
+                            <button class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-sync-alt me-1"></i> Today
+                            </button>
+                        </div>
+                        
+                        <div id="calendarContainer">
+                            <div id="calendarGrid">
+                                <!-- Calendar will be generated by JavaScript -->
+                                <div class="row text-center fw-bold mb-2">
+                                    <div class="col">Sun</div>
+                                    <div class="col">Mon</div>
+                                    <div class="col">Tue</div>
+                                    <div class="col">Wed</div>
+                                    <div class="col">Thu</div>
+                                    <div class="col">Fri</div>
+                                    <div class="col">Sat</div>
+                                </div>
+                                
+                                <!-- Sample Week 1 -->
+                                <div class="row mb-2">
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1 bg-light bg-opacity-50"></div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>2</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>3</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>4</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>5</span>
+                                            </div>
+                                            <div class="calendar-event calendar-event-teaching small" data-bs-toggle="tooltip" title="JavaScript Basics (3:00 PM)">
+                                                3:00 PM - JavaScript Basics
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>6</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Sample Week 2 -->
+                                <div class="row mb-2">
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>7</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>8</span>
+                                            </div>
+                                            <div class="calendar-event calendar-event-learning small" data-bs-toggle="tooltip" title="Python Data Analysis (10:00 AM)">
+                                                10:00 AM - Python Data Analysis
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>9</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>10</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>11</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>12</span>
+                                            </div>
+                                            <div class="calendar-event calendar-event-learning small" data-bs-toggle="tooltip" title="UI/UX Design (2:30 PM)">
+                                                2:30 PM - UI/UX Design
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>13</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Sample Week 3 -->
+                                <div class="row mb-2">
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>14</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>15</span>
+                                            </div>
+                                            <div class="calendar-event calendar-event-teaching small" data-bs-toggle="tooltip" title="HTML/CSS Workshop (4:00 PM)">
+                                                4:00 PM - HTML/CSS Workshop
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>16</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>17</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>18</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>19</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>20</span>
+                                            </div>
+                                            <div class="calendar-event calendar-event-teaching small" data-bs-toggle="tooltip" title="React Fundamentals (1:00 PM)">
+                                                1:00 PM - React Fundamentals
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Sample Week 4 -->
+                                <div class="row mb-2">
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>21</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>22</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>23</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>24</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>25</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>26</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>27</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Sample Week 5 -->
+                                <div class="row mb-2">
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>28</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>29</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <span>30</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1 bg-light bg-opacity-50"></div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1 bg-light bg-opacity-50"></div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1 bg-light bg-opacity-50"></div>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="calendar-day rounded p-1 bg-light bg-opacity-50"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- List View Tab -->
+                    <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Skill</th>
+                                        <th>With</th>
+                                        <th>Date & Time</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Upcoming Sessions -->
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-primary">Teaching</span>
+                                        </td>
+                                        <td>JavaScript Basics</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=Emma+Wilson&background=random" alt="User" class="rounded-circle me-2" width="32" height="32">
+                                                <span>Emma Wilson</span>
+                                            </div>
+                                        </td>
+                                        <td class="session-time" data-original-time="Today, 3:00 PM">Today, 3:00 PM (UTC-08:00)</td>
+                                        <td><span class="badge bg-success">Confirmed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#joinSessionModal">
+                                                <i class="fas fa-video"></i> Join
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#rescheduleSessionModal">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelSessionModal">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-success">Learning</span>
+                                        </td>
+                                        <td>Python Data Analysis</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=random" alt="User" class="rounded-circle me-2" width="32" height="32">
+                                                <span>Sarah Johnson</span>
+                                            </div>
+                                        </td>
+                                        <td class="session-time" data-original-time="Apr 8, 10:00 AM">Apr 8, 10:00 AM (UTC-08:00)</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-success me-1">
+                                                <i class="fas fa-check"></i> Confirm
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#rescheduleSessionModal">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelSessionModal">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-success">Learning</span>
+                                        </td>
+                                        <td>UI/UX Design</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=David+Chen&background=random" alt="User" class="rounded-circle me-2" width="32" height="32">
+                                                <span>David Chen</span>
+                                            </div>
+                                        </td>
+                                        <td class="session-time" data-original-time="Apr 12, 2:30 PM">Apr 12, 2:30 PM (UTC-08:00)</td>
+                                        <td><span class="badge bg-success">Confirmed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1" disabled>
+                                                <i class="fas fa-video"></i> Join
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#rescheduleSessionModal">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelSessionModal">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-primary">Teaching</span>
+                                        </td>
+                                        <td>HTML/CSS Workshop</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=Jessica+Taylor&background=random" alt="User" class="rounded-circle me-2" width="32" height="32">
+                                                <span>Jessica Taylor</span>
+                                            </div>
+                                        </td>
+                                        <td class="session-time" data-original-time="Apr 15, 4:00 PM">Apr 15, 4:00 PM (UTC-08:00)</td>
+                                        <td><span class="badge bg-success">Confirmed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1" disabled>
+                                                <i class="fas fa-video"></i> Join
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#rescheduleSessionModal">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelSessionModal">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-primary">Teaching</span>
+                                        </td>
+                                        <td>React Fundamentals</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=James+Anderson&background=random" alt="User" class="rounded-circle me-2" width="32" height="32">
+                                                <span>James Anderson</span>
+                                            </div>
+                                        </td>
+                                        <td class="session-time" data-original-time="Apr 20, 1:00 PM">Apr 20, 1:00 PM (UTC-08:00)</td>
+                                        <td><span class="badge bg-success">Confirmed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1" disabled>
+                                                <i class="fas fa-video"></i> Join
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#rescheduleSessionModal">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelSessionModal">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- Past Sessions -->
+                                    <tr class="table-light">
+                                        <td>
+                                            <span class="badge bg-primary">Teaching</span>
+                                        </td>
+                                        <td>JavaScript Advanced</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=Michael+Brown&background=random" alt="User" class="rounded-circle me-2" width="32" height="32">
+                                                <span>Michael Brown</span>
+                                            </div>
+                                        </td>
+                                        <td>Mar 28, 2:00 PM</td>
+                                        <td><span class="badge bg-secondary">Completed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                                <i class="fas fa-star"></i> Review
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-redo"></i> Rebook
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <td>
+                                            <span class="badge bg-success">Learning</span>
+                                        </td>
+                                        <td>Data Visualization</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=Emily+Davis&background=random" alt="User" class="rounded-circle me-2" width="32" height="32">
+                                                <span>Emily Davis</span>
+                                            </div>
+                                        </td>
+                                        <td>Mar 25, 11:00 AM</td>
+                                        <td><span class="badge bg-secondary">Completed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                                <i class="fas fa-star"></i> Review
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-redo"></i> Rebook
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Book Session Modal -->
+    <div class="modal fade" id="bookSessionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Book a New Session</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Session Type</label>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="sessionType" id="teachingSession" checked>
+                                <label class="btn btn-outline-primary" for="teachingSession">I'll be Teaching</label>
+                                
+                                <input type="radio" class="btn-check" name="sessionType" id="learningSession">
+                                <label class="btn btn-outline-success" for="learningSession">I'll be Learning</label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="sessionSkill" class="form-label">Skill</label>
+                            <select class="form-select" id="sessionSkill">
+                                <option selected disabled>Select a skill...</option>
+                                <optgroup label="Skills I Teach">
+                                    <option>JavaScript</option>
+                                    <option>Python</option>
+                                    <option>HTML/CSS</option>
+                                </optgroup>
+                                <optgroup label="Skills I'm Learning">
+                                    <option>UI/UX Design</option>
+                                    <option>Data Science</option>
+                                    <option>Spanish Language</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="sessionPartner" class="form-label">Session Partner</label>
+                            <select class="form-select" id="sessionPartner">
+                                <option selected disabled>Select a partner...</option>
+                                <option>Emma Wilson</option>
+                                <option>Sarah Johnson</option>
+                                <option>David Chen</option>
+                                <option>Jessica Taylor</option>
+                                <option>James Anderson</option>
+                            </select>
+                            <div class="form-text">
+                                <a href="match.html" class="text-decoration-none">Find a new match</a> if you don't see the right partner.
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="sessionDate" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="sessionDate">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="sessionTime" class="form-label">Time</label>
+                                <input type="time" class="form-control" id="sessionTime">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="sessionDuration" class="form-label">Duration</label>
+                            <select class="form-select" id="sessionDuration">
+                                <option value="30">30 minutes</option>
+                                <option value="60" selected>1 hour</option>
+                                <option value="90">1.5 hours</option>
+                                <option value="120">2 hours</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="sessionLocation" class="form-label">Location</label>
+                            <select class="form-select" id="sessionLocation">
+                                <option value="zoom" selected>Zoom</option>
+                                <option value="webrtc">SkillSwap Video (WebRTC)</option>
+                                <option value="teams">Microsoft Teams</option>
+                                <option value="meet">Google Meet</option>
+                                <option value="other">Other (specify in notes)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="sessionNotes" class="form-label">Session Notes</label>
+                            <textarea class="form-control" id="sessionNotes" rows="3" placeholder="Add any details about the session, topics to cover, or preparation needed..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Book Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Join Session Modal -->
+    <div class="modal fade" id="joinSessionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Join Session: JavaScript Basics</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>Session Details</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between px-0">
+                                    <span>Type:</span>
+                                    <span class="badge bg-primary">Teaching</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between px-0">
+                                    <span>With:</span>
+                                    <span>Emma Wilson</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between px-0">
+                                    <span>Date & Time:</span>
+                                    <span>Today, 3:00 PM</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between px-0">
+                                    <span>Duration:</span>
+                                    <span>1 hour</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between px-0">
+                                    <span>Location:</span>
+                                    <span>SkillSwap Video (WebRTC)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Session Notes</h6>
+                            <p class="mb-0">
+                                We'll be covering JavaScript basics including variables, data types, and control flow. Emma is a beginner with some HTML/CSS experience but new to JavaScript.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="videoContainer" class="mb-4">
+                        <div class="video-placeholder bg-dark">
+                            <div class="text-center">
+                                <i class="fas fa-video fa-3x mb-3"></i>
+                                <h5>Video Call</h5>
+                                <p class="mb-0">Click the button below to start the video call</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button id="startCallButton" class="btn btn-primary">
+                            <i class="fas fa-phone-alt me-2"></i> Start Video Call
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reschedule Session Modal -->
+    <div class="modal fade" id="rescheduleSessionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reschedule Session</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="currentDateTime" class="form-label">Current Date & Time</label>
+                            <input type="text" class="form-control" id="currentDateTime" value="Today, 3:00 PM" disabled>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="newDate" class="form-label">New Date</label>
+                                <input type="date" class="form-control" id="newDate">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="newTime" class="form-label">New Time</label>
+                                <input type="time" class="form-control" id="newTime">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="rescheduleReason" class="form-label">Reason for Rescheduling</label>
+                            <select class="form-select" id="rescheduleReason">
+                                <option selected>Schedule conflict</option>
+                                <option>Need more preparation time</option>
+                                <option>Technical issues</option>
+                                <option>Personal reasons</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="rescheduleMessage" class="form-label">Message to Partner</label>
+                            <textarea class="form-control" id="rescheduleMessage" rows="3" placeholder="Explain why you need to reschedule..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Request Reschedule</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Session Modal -->
+    <div class="modal fade" id="cancelSessionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cancel Session</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Are you sure you want to cancel this session? This action cannot be undone.
+                    </div>
+                    
+                    <form>
+                        <div class="mb-3">
+                            <label for="cancelReason" class="form-label">Reason for Cancellation</label>
+                            <select class="form-select" id="cancelReason">
+                                <option selected>Schedule conflict</option>
+                                <option>Need more preparation time</option>
+                                <option>Technical issues</option>
+                                <option>Personal reasons</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="cancelMessage" class="form-label">Message to Partner</label>
+                            <textarea class="form-control" id="cancelMessage" rows="3" placeholder="Explain why you need to cancel..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                    <button type="button" class="btn btn-danger">Cancel Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Leave Feedback</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-4 text-center">
+                            <h6>How would you rate this session?</h6>
+                            <div class="rating-stars fs-3 mb-2">
+                                <i class="far fa-star" data-value="1"></i>
+                                <i class="far fa-star" data-value="2"></i>
+                                <i class="far fa-star" data-value="3"></i>
+                                <i class="far fa-star" data-value="4"></i>
+                                <i class="far fa-star" data-value="5"></i>
+                            </div>
+                            <div id="ratingText" class="text-muted">Select a rating</div>
+                            <input type="hidden" id="ratingValue" value="0">
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="communicationRating" class="form-label">Communication</label>
+                                <select class="form-select" id="communicationRating">
+                                    <option value="5">Excellent</option>
+                                    <option value="4">Very Good</option>
+                                    <option value="3" selected>Good</option>
+                                    <option value="2">Fair</option>
+                                    <option value="1">Poor</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="clarityRating" class="form-label">Clarity</label>
+                                <select class="form-select" id="clarityRating">
+                                    <option value="5">Excellent</option>
+                                    <option value="4">Very Good</option>
+                                    <option value="3" selected>Good</option>
+                                    <option value="2">Fair</option>
+                                    <option value="1">Poor</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="knowledgeRating" class="form-label">Knowledge</label>
+                                <select class="form-select" id="knowledgeRating">
+                                    <option value="5">Excellent</option>
+                                    <option value="4">Very Good</option>
+                                    <option value="3" selected>Good</option>
+                                    <option value="2">Fair</option>
+                                    <option value="1">Poor</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="feedbackComments" class="form-label">Comments</label>
+                            <textarea class="form-control" id="feedbackComments" rows="4" placeholder="Share your experience and provide constructive feedback..."></textarea>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="bookAgainCheck" checked>
+                            <label class="form-check-label" for="bookAgainCheck">
+                                I would book another session with this person
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit Feedback</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
